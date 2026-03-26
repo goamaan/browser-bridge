@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a reproducible problem in browser-bridge
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Include exact commands, browser state, and environment details.
+      placeholder: |
+        1. Run ...
+        2. Attach to ...
+        3. Execute ...
+        4. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include OS, Bun version, Node version, browser version, and package version.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or structured fault output
+      description: Paste the JSON fault envelope, screenshots, or other relevant output.

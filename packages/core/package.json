@@ -1,0 +1,51 @@
+{
+  "name": "@goamaan/browser-bridge-core",
+  "version": "0.1.0",
+  "description": "Core transport, daemon, and browser adapters for browser-bridge",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "browser-bridge-daemon": "dist/bin/browser-bridge-daemon.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goamaan/browser-bridge.git"
+  },
+  "homepage": "https://github.com/goamaan/browser-bridge#readme",
+  "bugs": {
+    "url": "https://github.com/goamaan/browser-bridge/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "browser",
+    "automation",
+    "cdp",
+    "chrome",
+    "agent"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "playwright": "^1.52.0"
+  }
+}
