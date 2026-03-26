@@ -275,22 +275,52 @@ function isNodeExecutable(path: string): boolean {
 
 function resolveDaemonEntry(): string {
   const currentFile = fileURLToPath(import.meta.url);
-  const packageRoot = path.resolve(path.dirname(currentFile), '..', '..');
-  const compiledEntry = path.join(packageRoot, 'dist', 'bin', 'live-browser-daemon.js');
+  return resolveDaemonEntryFrom(currentFile);
+}
 
-  if (!existsSync(compiledEntry)) {
-    throw new BridgeError('DAEMON_ENTRY_MISSING', `Expected a built daemon entry at ${compiledEntry}.`, {
+export function resolveDaemonEntryFrom(currentFile: string): string {
+  const packageRoot = findNearestPackageRoot(path.dirname(currentFile));
+  const candidates = [
+    packageRoot ? path.join(packageRoot, 'dist', 'bin', 'live-browser-daemon.js') : null,
+    path.resolve(path.dirname(currentFile), 'bin', 'live-browser-daemon.js'),
+    path.resolve(path.dirname(currentFile), '..', 'bin', 'live-browser-daemon.js'),
+  ].filter((value): value is string => typeof value === 'string');
+
+  const compiledEntry = candidates.find((candidate) => existsSync(candidate));
+  if (!compiledEntry) {
+    throw new BridgeError('DAEMON_ENTRY_MISSING', `Expected a built daemon entry at one of: ${candidates.join(', ')}.`, {
       recoverable: true,
-      hint: 'Build live-browser before using the workspace CLI checkout.',
-      suggestedNextSteps: ['Run bun run build from the repository root.'],
+      hint: 'Reinstall the packaged CLI or rebuild the repository before retrying.',
+      suggestedNextSteps: [
+        'If you are using a global install, reinstall live-browser so dist/bin/live-browser-daemon.js is present.',
+        'If you are using the repository checkout, run bun run build from the repository root.',
+      ],
       diagnostics: {
         packageRoot,
         currentFile,
+        candidates,
       },
     });
   }
 
   return compiledEntry;
+}
+
+function findNearestPackageRoot(startDir: string): string | null {
+  let currentDir = startDir;
+
+  while (true) {
+    if (existsSync(path.join(currentDir, 'package.json'))) {
+      return currentDir;
+    }
+
+    const parentDir = path.dirname(currentDir);
+    if (parentDir === currentDir) {
+      return null;
+    }
+
+    currentDir = parentDir;
+  }
 }
 
 function startDetachedDaemon(runtime: string, daemonEntry: string, socketPath: string): void {

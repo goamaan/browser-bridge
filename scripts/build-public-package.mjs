@@ -7,8 +7,10 @@ const distDir = path.join(root, 'packages', 'cli', 'dist');
 const coreDistEntry = path.join(root, 'packages', 'core', 'dist', 'index.js');
 const sdkDistEntry = path.join(root, 'packages', 'sdk', 'dist', 'index.js');
 const cliDistEntry = path.join(root, 'packages', 'cli', 'dist', 'index.js');
+const daemonDistEntry = path.join(root, 'packages', 'core', 'dist', 'bin', 'live-browser-daemon.js');
 const cliOutput = path.join(distDir, 'index.js');
 const sdkOutput = path.join(distDir, 'sdk.js');
+const daemonOutput = path.join(distDir, 'bin', 'live-browser-daemon.js');
 
 const tempDir = path.join(root, 'packages', 'cli', '.bundle-temp');
 
@@ -35,7 +37,9 @@ try {
 
   await bundle(cliBundleEntry, cliOutput);
   await bundle(sdkBundleEntry, sdkOutput);
+  await bundle(daemonDistEntry, daemonOutput);
   await ensureCliShebang(cliOutput);
+  await ensureCliShebang(daemonOutput);
 } finally {
   await rm(tempDir, { recursive: true, force: true });
 }

@@ -34,6 +34,10 @@ function smokeBunInstall(tarballs) {
   run(bunCommand(), ['install'], bunProjectDir, { stdio: 'inherit' });
   const helpOutput = run(bunCommand(), ['x', 'live-browser', '--help'], bunProjectDir);
   assert.match(helpOutput, /Usage: live-browser/);
+  run(bunCommand(), ['x', 'live-browser', 'daemon', 'start'], bunProjectDir, { stdio: 'inherit' });
+  const daemonStatus = run(bunCommand(), ['x', 'live-browser', 'daemon', 'status'], bunProjectDir);
+  assert.match(daemonStatus, /socketPath/);
+  run(bunCommand(), ['x', 'live-browser', 'daemon', 'stop'], bunProjectDir, { stdio: 'inherit' });
 
   const skillBase = path.join(bunProjectDir, 'skill-output');
   run(bunCommand(), ['x', 'live-browser', 'skill', 'install', '--project', skillBase], bunProjectDir, { stdio: 'inherit' });
@@ -51,6 +55,10 @@ function smokeNpmInstall(tarballs) {
   run(npmCommand(), ['install'], npmProjectDir, { stdio: 'inherit' });
   const helpOutput = run(npmCommand(), ['exec', '--', 'live-browser', '--help'], npmProjectDir);
   assert.match(helpOutput, /Usage: live-browser/);
+  run(npmCommand(), ['exec', '--', 'live-browser', 'daemon', 'start'], npmProjectDir, { stdio: 'inherit' });
+  const daemonStatus = run(npmCommand(), ['exec', '--', 'live-browser', 'daemon', 'status'], npmProjectDir);
+  assert.match(daemonStatus, /socketPath/);
+  run(npmCommand(), ['exec', '--', 'live-browser', 'daemon', 'stop'], npmProjectDir, { stdio: 'inherit' });
 
   const skillBase = path.join(npmProjectDir, 'skill-output');
   run(npmCommand(), ['exec', '--', 'live-browser', 'skill', 'install', '--project', skillBase], npmProjectDir, {

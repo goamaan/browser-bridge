@@ -13,6 +13,7 @@ export const publicPackages = [
       'package/README.md',
       'package/LICENSE',
       'package/dist/index.js',
+      'package/dist/bin/live-browser-daemon.js',
       'package/dist/sdk.js',
       'package/skill/live-browser/SKILL.md',
       'package/skill/live-browser/agents/openai.yaml',
