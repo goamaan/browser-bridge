@@ -1,0 +1,7 @@
+# @goamaan/browser-bridge-core
+
+## 0.2.0
+
+### Minor Changes
+
+- fdad408: Ship the initial public browser-bridge CLI, core transport, SDK, packaged skill, and release scaffolding.

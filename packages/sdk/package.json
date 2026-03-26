@@ -1,6 +1,6 @@
 {
   "name": "@goamaan/browser-bridge-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "JS and TypeScript SDK for browser-bridge",
   "type": "module",
   "main": "./dist/index.js",
@@ -41,6 +41,6 @@
     "build": "tsc -b"
   },
   "dependencies": {
-    "@goamaan/browser-bridge-core": "0.1.0"
+    "@goamaan/browser-bridge-core": "0.2.0"
   }
 }
