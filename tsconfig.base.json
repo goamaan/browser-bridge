@@ -13,6 +13,11 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "baseUrl": ".",
+    "paths": {
+      "@browser-bridge/core": ["packages/core/src/index.ts"],
+      "@browser-bridge/sdk": ["packages/sdk/src/index.ts"]
+    }
   }
 }
